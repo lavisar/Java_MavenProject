@@ -23,32 +23,36 @@ public class EmployeeController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
         if (Action.ADD.toString().equalsIgnoreCase(action)) {
+            Employee employee = getEmployee(req);
+            if (employeeBean.addEmployee(employee)) {
+                req.getServletContext().getRequestDispatcher("/AddEmployee.jsp").include(req, resp);
+                resp.getWriter().write("Add Emmployee Success.");
+            } else {
+                resp.getWriter().write("Add Emmployee Fail.");
+            }
 
         }
     }
 
     private static Employee getEmployee(HttpServletRequest request){
-        String EmpId         = request.getParameter("EmployeeId");
-        String EmpName       = request.getParameter("EmpName");
-        String is_company    = request.getParameter("in_Company");
-        String not_company   = request.getParameter("not_in_Company");
-        String companyId     = request.getParameter("CompanyId");
-        String companyName   = request.getParameter("CompanyName");
+        String employeeId = request.getParameter("employeeId");
+        String employeeName = request.getParameter("employeeName");
+        String companyId = request.getParameter("companyId");
+        String companyName = request.getParameter("companyName");
 
         Employee employee = new Employee();
-
-        employee.setEmployeeId(EmpId);
-        employee.setEmployeeName(EmpName);
+        employee.setEmployeeId(employeeId);
+        employee.setEmployeeName(employeeName);
 
         Company company = new Company();
-
         company.setCompanyId(companyId);
         company.setCompanyName(companyName);
 
-        // Chưa hiểu rõ yêu cầu đề bài
+        EmployeeCompany employeeCompany = new EmployeeCompany();
+        employeeCompany.setEmployee(employee);
+        employeeCompany.setCompany(company);
 
 
-
-        return null;
+        return employee;
     }
 }

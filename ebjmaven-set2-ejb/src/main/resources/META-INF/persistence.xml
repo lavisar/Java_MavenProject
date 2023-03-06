@@ -23,7 +23,9 @@
    <persistence-unit name="ebjmaven-set2PersistenceUnit">
       <!-- If you are running in a production environment, add a managed
          data source, this configuration uses the JakartaEE default data source is just for development and testing! -->
-      <jta-data-source>java:comp/DefaultDataSource</jta-data-source>
+      <class>org.lavi.entities.Employee</class>
+      <class>org.lavi.entities.Company</class>
+      <class>org.lavi.entities.EmployeeCompany</class>
       <properties>
          <!--         use javax instead of jarkata -->
          <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
@@ -33,10 +35,10 @@
          <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
 
 <!--     (*) Run for first time use this -->
-         <property name="javax.persistence.schema-generation.database.action" value="create"/>
+<!--         <property name="javax.persistence.schema-generation.database.action" value="create"/>-->
 
 <!--     (*) After run in the first time please use this instead (comment the top) -->
-<!--     <property name="javax.persistence.schema-generation.database.action" value="none"/>-->
+     <property name="javax.persistence.schema-generation.database.action" value="none"/>
 
          <property name="javax.persistence.schema-generation.create-source" value="metadata"/>
          <property name="javax.persistence.schema-generation.drop-source" value="metadata"/>
